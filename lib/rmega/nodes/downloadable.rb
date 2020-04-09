@@ -69,6 +69,17 @@ module Rmega
         path = ::File.expand_path(path)
         path = Dir.exists?(path) ? ::File.join(path, name) : path
 
+        # SL START
+        final_path = path
+
+        if ::File.exist?(final_path)
+          puts "#{final_path} exists, skipping"
+          return nil
+        end
+
+        path = path + ".part"
+        # SL END
+
         progress = Progress.new(filesize, caption: 'Allocate', filename: self.name)
         pool = Pool.new
 
@@ -104,6 +115,11 @@ module Rmega
             raise("Checksum failed. File corrupted?")
           end
         end
+
+        # SL START
+        FileUtils.mv(path, final_path)
+        puts "Moved #{path} to #{final_path}"
+        # SL END
 
         return nil
       ensure
