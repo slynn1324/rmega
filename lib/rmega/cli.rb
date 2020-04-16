@@ -122,6 +122,7 @@ module Rmega
           raise(ex)
         else
           $stderr.puts "\nERROR: #{ex.message}"
+          exit 1
         end
       end
     end
