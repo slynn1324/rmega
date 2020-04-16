@@ -78,6 +78,8 @@ module Rmega
         end
 
         path = path + ".part"
+
+        puts "Downloading to ${final_path}"
         # SL END
 
         progress = Progress.new(filesize, caption: 'Allocate', filename: self.name)
